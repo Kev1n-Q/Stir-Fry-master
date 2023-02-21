@@ -15,7 +15,8 @@ package frc.robot;
 public final class Constants {
   public static final int driverController_ID = 0; // drive + vision pipeline
     public static final int mechanismController_Id = 1; // mechanisms + vision command
-    
+
+
     public static final int kDPadUp = 0;
     public static final int kDPadDown = 180;
     public static final int kDPadRight = 90;
@@ -45,7 +46,7 @@ public final class Constants {
         public static final double driveSpeed = 0.25;
         public static final double maxDriveSpeed = 0.65; // max speed will not surpass 65% full speed
 
-        public static final double desiredtargetArea = 10; 
+        public static final double desiredtargetArea = 25; 
     }
 
     public static final class VisionConstants{
@@ -63,7 +64,7 @@ public final class Constants {
 
     public static final class LEDConstants {
         public static final int ledBuffer = 60; // 60 lights
-        public static final int ledLightsPort = 0; // PWM Port
+        public static final int ledLightsPort = 1; // PWM Port
     }
   
 }

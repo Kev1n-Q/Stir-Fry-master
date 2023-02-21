@@ -12,7 +12,7 @@ import frc.robot.commands.Pipeline0Command;
 import frc.robot.commands.Pipeline1Command;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.LEDSubsystem; 
 import frc.robot.subsystems.LimelightSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -70,7 +70,7 @@ public class RobotContainer {
         drive1Controller.leftBumper().onTrue(new Pipeline0Command(limelight, ledSubsystem));
         drive1Controller.rightBumper().onTrue(new Pipeline1Command(limelight, ledSubsystem));
         // run AutoAlignCommand when the Xbutton is pressed
-        drive1Controller.x().onTrue(new AutoAlignCommand(drivetrainSubsystem, limelight));
+        drive1Controller.a().onTrue(new AutoAlignCommand(drivetrainSubsystem, limelight));
 
         drive1Controller.b().onTrue(new LEDChargeStationCommand(ledSubsystem)); // rainbow: When going to platform
    

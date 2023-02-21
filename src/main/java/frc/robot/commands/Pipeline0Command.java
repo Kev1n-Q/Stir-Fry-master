@@ -27,12 +27,14 @@ public class Pipeline0Command extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ledSubsystem.setBurgundy();
+   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
+    ledSubsystem.setBurgundy();
     limeLight.setPipeline(Constants.VisionConstants.Cube_Pipeline);
   }
 

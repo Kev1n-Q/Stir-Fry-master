@@ -43,7 +43,7 @@ import frc.robot.subsystems.LimelightSubsystem;
   // Called once the command endsr is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrainSubsystem.stop();
+    drivetrainSubsystem.setArcadeSpeed(0,0);
   }
 
   // Returns true when the command should end.
