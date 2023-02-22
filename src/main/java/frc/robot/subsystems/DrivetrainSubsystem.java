@@ -27,11 +27,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
    /* public void setMotorSpeed(double leftSpeed, double rightSpeed) {
     leftSideMotors.set(leftSpeed);
     rightSideMotors.set(rightSpeed);
-    
-  } */
+    */
+   
 
   public void setArcadeSpeed (double moveSpeed, double rotateSpeed){
     arcDrive.arcadeDrive(moveSpeed, rotateSpeed);
+    System.out.println("Drive speed: " + moveSpeed + ", Rotate Speed: " + rotateSpeed);
   } 
 
   public void stop() {

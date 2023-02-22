@@ -46,7 +46,7 @@ public final class Constants {
         public static final double driveSpeed = 0.25;
         public static final double maxDriveSpeed = 0.65; // max speed will not surpass 65% full speed
 
-        public static final double desiredtargetArea = 25; 
+        public static final double desiredtargetArea = 4; 
     }
 
     public static final class VisionConstants{

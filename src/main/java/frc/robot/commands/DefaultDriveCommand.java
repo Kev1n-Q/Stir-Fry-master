@@ -34,14 +34,13 @@ public class DefaultDriveCommand extends CommandBase {
     double realMoveSpeed = moveSpeed.getAsDouble();
     double realRotateSpeed = rotateSpeed.getAsDouble();
     drivetrainSubsystem.setArcadeSpeed(realMoveSpeed, realRotateSpeed);
-   // drivetrainSubsystem.setMotorSpeed(-left, right);
+  
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrainSubsystem.setArcadeSpeed(0, 0);
-   // drivetrainSubsystem.setMotorSpeed(0, 0);
+    // drivetrainSubsystem.setArcadeSpeed(0, 0);
   }
 
   // Returns true when the command should end.

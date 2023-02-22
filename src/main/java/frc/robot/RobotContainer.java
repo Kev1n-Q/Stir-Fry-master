@@ -45,7 +45,11 @@ public class RobotContainer {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(drivetrainSubsystem,
     () -> drive1Controller.getRawAxis(Constants.kRight_X),
     () -> drive1Controller.getRawAxis(Constants.kLeft_Y)));  
-    configureBindings();
+    
+    configureBindings(); 
+
+    /* drivetrainSubsystem.setDefaultCommand(new AutoAlignCommand(drivetrainSubsystem, limelight));
+    configureBindings(); */
   }
 
   /**
@@ -70,7 +74,7 @@ public class RobotContainer {
         drive1Controller.leftBumper().onTrue(new Pipeline0Command(limelight, ledSubsystem));
         drive1Controller.rightBumper().onTrue(new Pipeline1Command(limelight, ledSubsystem));
         // run AutoAlignCommand when the Xbutton is pressed
-        drive1Controller.a().onTrue(new AutoAlignCommand(drivetrainSubsystem, limelight));
+        drive1Controller.x().onTrue(new AutoAlignCommand(drivetrainSubsystem, limelight));
 
         drive1Controller.b().onTrue(new LEDChargeStationCommand(ledSubsystem)); // rainbow: When going to platform
    
@@ -85,4 +89,5 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_exampleSubsystem);
   }
+
 }

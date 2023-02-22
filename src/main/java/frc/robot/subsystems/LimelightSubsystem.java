@@ -24,9 +24,9 @@
       return currentPipeline;
     }
 
-    private static boolean m_LimelightHasValidTargets = false;
-    private static double m_LimelightDriveCommand = 0.0;
-    private static double m_LimelightRotateCommand = 0.0;
+    public static boolean m_LimelightHasValidTargets = false;
+    public static double m_LimelightDriveCommand = 0.0;
+    public static double m_LimelightRotateCommand = 0.0;
 
     public static void Update_Limelight_Values() {
     
