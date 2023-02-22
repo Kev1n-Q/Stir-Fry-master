@@ -22,6 +22,8 @@ import frc.robot.subsystems.LimelightSubsystem;
     addRequirements(drivetrainSubsystem, limelight);
   }
 
+ 
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -33,11 +35,18 @@ import frc.robot.subsystems.LimelightSubsystem;
   public void execute() {
 
     LimelightSubsystem.Update_Limelight_Values();
-
-    double driveCommand = limelight.getDriveCommand(Constants.AutoAlignConstants.driveSpeed, Constants.AutoAlignConstants.desiredtargetArea);
+    
+    if (LimelightSubsystem.m_LimelightHasValidTargets) { // try == true
+      drivetrainSubsystem.setArcadeSpeed(LimelightSubsystem.m_LimelightDriveCommand, LimelightSubsystem.m_LimelightRotateCommand);
+    } else {
+      drivetrainSubsystem.setArcadeSpeed(0, 0);
+    }
+    
+    /* double driveCommand = limelight.getDriveCommand(Constants.AutoAlignConstants.driveSpeed, Constants.AutoAlignConstants.desiredtargetArea);
     double rotateCommand = limelight.getRotateCommand(Constants.AutoAlignConstants.rotateSpeed);
 
-    drivetrainSubsystem.setArcadeSpeed(driveCommand, rotateCommand); 
+    drivetrainSubsystem.setArcadeSpeed(driveCommand, rotateCommand); */
+
   }
 
   // Called once the command endsr is interrupted.
@@ -49,7 +58,6 @@ import frc.robot.subsystems.LimelightSubsystem;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return limelight.hasValidTargets();
+    return limelight.hasValidTargets() == false;
   }
-
 }
