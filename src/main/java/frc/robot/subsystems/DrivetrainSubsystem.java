@@ -24,14 +24,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private DifferentialDrive arcDrive = new DifferentialDrive(leftSideMotors, rightSideMotors);
 
-   /* public void setMotorSpeed(double leftSpeed, double rightSpeed) {
-    leftSideMotors.set(leftSpeed);
-    rightSideMotors.set(rightSpeed);
-    
-  } */
+   
 
   public void setArcadeSpeed (double moveSpeed, double rotateSpeed){
     arcDrive.arcadeDrive(moveSpeed, rotateSpeed);
+    System.out.println("Drive speed: " + speed + ", Rotation: " + rotation); // Debug statement
   } 
 
   public void stop() {

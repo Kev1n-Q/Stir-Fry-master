@@ -39,7 +39,7 @@ import frc.robot.subsystems.LimelightSubsystem;
 
     drivetrainSubsystem.setArcadeSpeed(driveCommand, rotateCommand); 
   }
-
+ 
   // Called once the command endsr is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -49,7 +49,7 @@ import frc.robot.subsystems.LimelightSubsystem;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return limelight.hasValidTargets();
+    return limelight.hasValidTargets() ==  false;
   }
 
 }
