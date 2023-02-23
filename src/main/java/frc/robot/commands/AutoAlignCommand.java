@@ -8,12 +8,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 
   public class AutoAlignCommand extends CommandBase {
 
     private final DrivetrainSubsystem drivetrainSubsystem;
     private final LimelightSubsystem limelight;
+    
 
   /** Creates a new AutoAlignCommand. */
  public AutoAlignCommand(DrivetrainSubsystem drivetrainSubsystem, LimelightSubsystem limelight) {
@@ -37,12 +39,15 @@ import frc.robot.subsystems.LimelightSubsystem;
 
     LimelightSubsystem.Update_Limelight_Values();
     
-    if (LimelightSubsystem.m_LimelightHasValidTargets) { // try == true
-      drivetrainSubsystem.setArcadeSpeed(LimelightSubsystem.m_LimelightDriveCommand, LimelightSubsystem.m_LimelightRotateCommand);
+    double driveCommand = LimelightSubsystem.m_LimelightDriveCommand;
+    double rotateCommand = LimelightSubsystem.m_LimelightRotateCommand;
+    
+    if (LimelightSubsystem.m_LimelightHasValidTargets ==  true) { // try == true
+      drivetrainSubsystem.setArcadeSpeed(driveCommand, rotateCommand); 
     } else {
       drivetrainSubsystem.setArcadeSpeed(0, 0);
     }
-    
+
     /* double driveCommand = limelight.getDriveCommand(Constants.AutoAlignConstants.driveSpeed, Constants.AutoAlignConstants.desiredtargetArea);
     double rotateCommand = limelight.getRotateCommand(Constants.AutoAlignConstants.rotateSpeed);
 

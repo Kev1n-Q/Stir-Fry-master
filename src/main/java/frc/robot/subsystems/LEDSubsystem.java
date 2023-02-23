@@ -20,6 +20,7 @@ public class LEDSubsystem extends SubsystemBase {
   // autonomous: blue white red
   // pipeline 0: burgundy **DEFAULT** - ***LEFT BUMPER
   // pipeline 1: gold - ***RIGHT BUMPER
+  // READY TO SCORe: Green
   // charge station period: rainbow
 
 
@@ -76,6 +77,11 @@ public class LEDSubsystem extends SubsystemBase {
 
   public void setGold() { // when in pipeline 1: retroreflective tape
     ledLightsBuffer.setRGB(0, 255, 209, 0);
+    ledLights.setData(ledLightsBuffer);
+  }
+
+  public void setGreen() {
+    ledLightsBuffer.setRGB(0, 0, 255, 0);
     ledLights.setData(ledLightsBuffer);
   }
 

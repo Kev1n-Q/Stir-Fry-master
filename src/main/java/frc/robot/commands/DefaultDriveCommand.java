@@ -21,6 +21,7 @@ public class DefaultDriveCommand extends CommandBase {
    this.moveSpeed = moveSpeed;
    this.rotateSpeed = rotateSpeed;
    addRequirements(drivetrainSubsystem);
+   
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

@@ -28,12 +28,14 @@
     public static double m_LimelightDriveCommand = 0.0;
     public static double m_LimelightRotateCommand = 0.0;
 
+    
+
     public static void Update_Limelight_Values() {
     
-        double tx = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("tx").getDouble(0.0); 
-        double ty = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("ty").getDouble(0.0);
-        double targetArea = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("ta").getDouble(0.0);
-        double validTargets = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("tv").getDouble(0.0);
+        double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0.0); 
+        double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
+        double targetArea = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0.0);
+        int validTargets = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getNumber(0).intValue();
         
 
         if (validTargets < 1) {
@@ -72,7 +74,6 @@
     public double getRotateCommand(double rotatespeed) {
       return m_LimelightRotateCommand;
     }
-
     
     /** Creates a new LimelightSubsystem. */
     public LimelightSubsystem() {}

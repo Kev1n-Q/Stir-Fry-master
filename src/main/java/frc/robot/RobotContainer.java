@@ -47,9 +47,6 @@ public class RobotContainer {
     () -> drive1Controller.getRawAxis(Constants.kLeft_Y)));  
     
     configureBindings(); 
-
-    /* drivetrainSubsystem.setDefaultCommand(new AutoAlignCommand(drivetrainSubsystem, limelight));
-    configureBindings(); */
   }
 
   /**
