@@ -29,8 +29,7 @@
     public static double m_LimelightRotateCommand = 0.0;
 
     
-
-    public static void Update_Limelight_Values() {
+    public static void updateLimelightValues() {
     
         double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0.0); 
         double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
@@ -67,11 +66,11 @@
       return m_LimelightHasValidTargets;
     }
 
-    public double getDriveCommand(double drivespeed, double desiredtargetarea) {
+    public static double getDriveCommand(double drivespeed, double desiredtargetarea) {
       return m_LimelightDriveCommand;
     }
 
-    public double getRotateCommand(double rotatespeed) {
+    public static double getRotateCommand(double rotatespeed) {
       return m_LimelightRotateCommand;
     }
     
@@ -81,6 +80,7 @@
     @Override
     public void periodic() {
       // This method will be called once per scheduler run
+      updateLimelightValues();
     }
 
 }

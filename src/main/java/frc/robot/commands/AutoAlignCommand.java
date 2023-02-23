@@ -14,33 +14,30 @@ import frc.robot.subsystems.LimelightSubsystem;
   public class AutoAlignCommand extends CommandBase {
 
     private final DrivetrainSubsystem drivetrainSubsystem;
-    private final LimelightSubsystem limelight;
+    private final LimelightSubsystem limelightSubsystem;
     
-
   /** Creates a new AutoAlignCommand. */
- public AutoAlignCommand(DrivetrainSubsystem drivetrainSubsystem, LimelightSubsystem limelight) {
+ public AutoAlignCommand(DrivetrainSubsystem drivetrainSubsystem, LimelightSubsystem limelightSubsystem) {
     this.drivetrainSubsystem = drivetrainSubsystem;
-    this.limelight = limelight;
-    addRequirements(drivetrainSubsystem, limelight);
+    this.limelightSubsystem = limelightSubsystem;
+    addRequirements(drivetrainSubsystem, limelightSubsystem);
     
   }
-
- 
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    limelight.setPipeline(Constants.VisionConstants.Default_Pipeline); // pipeline 0 (ATags)
+    limelightSubsystem.setPipeline(Constants.VisionConstants.Default_Pipeline); // pipeline 0 (ATags)
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    LimelightSubsystem.Update_Limelight_Values();
-    
-    double driveCommand = LimelightSubsystem.m_LimelightDriveCommand;
-    double rotateCommand = LimelightSubsystem.m_LimelightRotateCommand;
+    LimelightSubsystem.updateLimelightValues();
+
+    double driveCommand = LimelightSubsystem.getDriveCommand(Constants.AutoAlignConstants.driveSpeed, Constants.AutoAlignConstants.desiredtargetArea);
+    double rotateCommand = LimelightSubsystem.getRotateCommand(Constants.AutoAlignConstants.rotateSpeed);
     
     if (LimelightSubsystem.m_LimelightHasValidTargets ==  true) { // try == true
       drivetrainSubsystem.setArcadeSpeed(driveCommand, rotateCommand); 
@@ -58,12 +55,12 @@ import frc.robot.subsystems.LimelightSubsystem;
   // Called once the command endsr is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrainSubsystem.setArcadeSpeed(0,0);
+    drivetrainSubsystem.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return limelight.hasValidTargets() == false;
+    return !limelightSubsystem.hasValidTargets();
   }
 }

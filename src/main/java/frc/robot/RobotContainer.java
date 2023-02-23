@@ -31,7 +31,7 @@ public class RobotContainer {
 
 
   private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  private final LimelightSubsystem limelight = new LimelightSubsystem();
+  private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   private final LEDSubsystem ledSubsystem = new LEDSubsystem();
  
   private final XboxController driverController = new XboxController(Constants.driverController_ID);
@@ -68,10 +68,10 @@ public class RobotContainer {
         XboxController xButton = new XboxController(Constants.kX_Button);
     
         // Switch to pipeline 'X' when the 'X' bumper is pressed 
-        drive1Controller.leftBumper().onTrue(new Pipeline0Command(limelight, ledSubsystem));
-        drive1Controller.rightBumper().onTrue(new Pipeline1Command(limelight, ledSubsystem));
+        drive1Controller.leftBumper().onTrue(new Pipeline0Command(limelightSubsystem, ledSubsystem));
+        drive1Controller.rightBumper().onTrue(new Pipeline1Command(limelightSubsystem, ledSubsystem));
         // run AutoAlignCommand when the Xbutton is pressed
-        drive1Controller.x().onTrue(new AutoAlignCommand(drivetrainSubsystem, limelight));
+        drive1Controller.x().onTrue(new AutoAlignCommand(drivetrainSubsystem, limelightSubsystem));
 
         drive1Controller.b().onTrue(new LEDChargeStationCommand(ledSubsystem)); // rainbow: When going to platform
    

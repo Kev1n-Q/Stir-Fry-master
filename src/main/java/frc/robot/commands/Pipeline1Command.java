@@ -12,14 +12,14 @@ import frc.robot.subsystems.LimelightSubsystem;
 
 public class Pipeline1Command extends CommandBase {
 
-  private final LimelightSubsystem limeLight;
+  private final LimelightSubsystem limelightSubsystem;
   private final LEDSubsystem ledSubsystem; // PIPELINE 1 = GOLD
 
   /** Creates a new Pipeline1. */
-  public Pipeline1Command(LimelightSubsystem limeLight, LEDSubsystem ledSubsystem) {
-    this.limeLight = limeLight;
+  public Pipeline1Command(LimelightSubsystem limelightSubsystem, LEDSubsystem ledSubsystem) {
+    this.limelightSubsystem = limelightSubsystem;
     this.ledSubsystem = ledSubsystem;
-    addRequirements(limeLight, ledSubsystem);
+    addRequirements(limelightSubsystem, ledSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,7 +33,7 @@ public class Pipeline1Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limeLight.setPipeline(Constants.VisionConstants.Cone_Pipeline);
+    limelightSubsystem.setPipeline(Constants.VisionConstants.Cone_Pipeline);
   }
 
   // Called once the command ends or is interrupted.
