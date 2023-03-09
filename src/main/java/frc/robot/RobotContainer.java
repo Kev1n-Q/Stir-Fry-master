@@ -4,18 +4,21 @@
 
 package frc.robot;
 
+import frc.robot.Constants.SpearConstants;
+import frc.robot.commands.Auto1;
 import frc.robot.commands.AutoAlignCommand;
-import frc.robot.commands.Autos;
 import frc.robot.commands.DefaultDriveCommand;
-import frc.robot.commands.LEDChargeStationCommand;
+// import frc.robot.commands.LEDChargeStationCommand;
 import frc.robot.commands.Pipeline0Command;
 import frc.robot.commands.Pipeline1Command;
+import frc.robot.commands.SetSpearPosition;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LEDSubsystem; 
 import frc.robot.subsystems.LimelightSubsystem;
-import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.SpearPID;
+import frc.robot.subsystems.The_Pinch_n_Twist;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -27,29 +30,29 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
 
   private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  private final LimelightSubsystem limelight = new LimelightSubsystem();
+  private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   private final LEDSubsystem ledSubsystem = new LEDSubsystem();
+
+  private final The_Pinch_n_Twist the_Pinch_n_Twist = new The_Pinch_n_Twist();
+  private final SpearPID spearPID = new SpearPID();
  
-  private final XboxController driverController = new XboxController(Constants.driverController_ID);
-  private final CommandXboxController drive1Controller = new CommandXboxController(Constants.driverController_ID);
-  
+  private final CommandXboxController driveController = new CommandXboxController(Constants.driverController_ID);
+  private final CommandXboxController mechanismController = new CommandXboxController(Constants.mechanismController_ID);
+
+
+  private final Command auto1 = new Auto1(drivetrainSubsystem, null, null);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(drivetrainSubsystem,
-    () -> drive1Controller.getRawAxis(Constants.kRight_X),
-    () -> drive1Controller.getRawAxis(Constants.kLeft_Y)));  
-    
-    configureBindings(); 
+     () -> driveController.getRawAxis(Constants.kLeft_Y),
+     () -> -driveController.getRawAxis(Constants.kRight_X)));
 
-    /* drivetrainSubsystem.setDefaultCommand(new AutoAlignCommand(drivetrainSubsystem, limelight));
-    configureBindings(); */
+    configureBindings(); 
   }
 
   /**
@@ -64,20 +67,27 @@ public class RobotContainer {
   
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-        
-
-        XboxController leftBumper = new XboxController(Constants.kLeft_Bumper);
-        XboxController rightBumper = new XboxController( Constants.kRight_Bumper);
-        XboxController xButton = new XboxController(Constants.kX_Button);
+    //Two button pinch (claw) control
     
-        // Switch to pipeline 'X' when the 'X' bumper is pressed 
-        drive1Controller.leftBumper().onTrue(new Pipeline0Command(limelight, ledSubsystem));
-        drive1Controller.rightBumper().onTrue(new Pipeline1Command(limelight, ledSubsystem));
-        // run AutoAlignCommand when the Xbutton is pressed
-        drive1Controller.x().onTrue(new AutoAlignCommand(drivetrainSubsystem, limelight));
+    mechanismController.button(Constants.kA_Button).toggleOnTrue(Commands.startEnd(the_Pinch_n_Twist::pinchExtend, the_Pinch_n_Twist::pinchRetract, the_Pinch_n_Twist));
 
-        drive1Controller.b().onTrue(new LEDChargeStationCommand(ledSubsystem)); // rainbow: When going to platform
-   
+    driveController.leftBumper().onTrue(new DefaultDriveCommand(drivetrainSubsystem, 
+    () -> .05, () -> 0));
+
+    mechanismController.leftBumper().onTrue(new SetSpearPosition(
+      SpearConstants.kSpearRetract, spearPID));
+
+    mechanismController.rightBumper().onTrue(new SetSpearPosition(
+      SpearConstants.kSpearExtend, spearPID));
+
+    // Switch pipelines 
+    driveController.leftTrigger().onTrue(new Pipeline0Command(limelightSubsystem, ledSubsystem));
+    driveController.rightTrigger().onTrue(new Pipeline1Command(limelightSubsystem, ledSubsystem));
+
+    // run AutoAlignCommand
+    driveController.x().onTrue(new AutoAlignCommand(drivetrainSubsystem,limelightSubsystem));
+
+    // driveController.y().onTrue(new LEDChargeStationCommand(ledSubsystem)); // rainbow: When going to platform
   }
 
   /**
@@ -87,7 +97,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return auto1; 
   }
 
 }

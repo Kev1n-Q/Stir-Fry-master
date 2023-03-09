@@ -20,6 +20,7 @@ public class LEDSubsystem extends SubsystemBase {
   // autonomous: blue white red
   // pipeline 0: burgundy **DEFAULT** - ***LEFT BUMPER
   // pipeline 1: gold - ***RIGHT BUMPER
+  // READY TO SCORE: Green
   // charge station period: rainbow
 
 
@@ -79,6 +80,11 @@ public class LEDSubsystem extends SubsystemBase {
     ledLights.setData(ledLightsBuffer);
   }
 
+  public void setGreen() {
+    ledLightsBuffer.setRGB(0, 0, 255, 0);
+    ledLights.setData(ledLightsBuffer);
+  }
+
   public void setRainbow() { // charge station period
     for (int i = 0; i < ledLightsBuffer.getLength(); i++) {
       int hue = (i / (int) ledLightsBuffer.getLength()) * 360; // hue: 0 - 360 degrees
@@ -92,5 +98,15 @@ public class LEDSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  // LED Arduino Code:
+  /* #include <FastLED.h>
+  #include <Arduino.h>
+
+  #define LED_PIN 6
+  #define NUM_LEDS ____
+  #define BRIGHTNESS 255 (max)
+  #define LED_TYPE WS2812B 
+  CRGB leds[NUM_LEDS]; */
 
 }

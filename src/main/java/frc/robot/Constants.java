@@ -1,4 +1,4 @@
-hy// Copyright (c) FIRST and other WPILib contributors.
+// Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -13,8 +13,8 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final int driverController_ID = 0; // drive + vision pipeline
-    public static final int mechanismController_Id = 1; // mechanisms + vision command
+     public static final int driverController_ID = 0; // drive + vision pipeline
+    public static final int mechanismController_ID = 1; // mechanisms + vision command
 
 
     public static final int kDPadUp = 0;
@@ -39,14 +39,15 @@ public final class Constants {
     public static final int kX_Button = 3;
     public static final double kDeadband = 0.05;
 
-    // AutoAlign constants // **EDIT**
-    public static final class AutoAlignConstants{
-        // TUNE
-        public static final double rotateSpeed = 0.02;
-        public static final double driveSpeed = 0.25;
-        public static final double maxDriveSpeed = 0.65; // max speed will not surpass 65% full speed
+    public static final double kEncoderTick2Meter = 1 /2048.0 * 0.1 * Math.PI;
 
-        public static final double desiredtargetArea = 4; 
+    public static final class AutoAlignConstants{ // TUNE
+        public static final double rotateSpeed = 0.25;
+        public static final double driveSpeed = 0.25;
+       //  public static final double maxDriveSpeed = 0.30; // max speed will not surpass X% full speed
+
+        public static final double minTargetArea = 0.25;
+        public static final double maxTargetArea = 3; 
     }
 
     public static final class VisionConstants{
@@ -65,6 +66,47 @@ public final class Constants {
     public static final class LEDConstants {
         public static final int ledBuffer = 60; // 60 lights
         public static final int ledLightsPort = 1; // PWM Port
+    }
+
+    public final static class PinchNTwistConstants {
+        public static final int kSolenoidFoward = 0;
+        public static final int kSolenoidReverse = 1;
+    }
+
+    public final static class SpearConstants {
+        public static final int kSpearDriveID = 15;
+        public static final double kSpearExtend = .2;
+        public static final double kSpearRetract = .2;
+        
+       
+        public static final double kPSpear = .2;
+        public static final double kISpear = .002;
+        public static final double kDSpear = 2;
+
+        public static final double kSpearRatio = 1/10;
+        public static final double kElevatorRatio = 1 / 262.5;
+    }
+
+    public final static class ElevatorConstants {
+        public static final int kLeftElevatorDriveID = 6;
+        public static final int kRightElevatorDriveID = 9;
+
+        //PID magic
+        public static final double kEP = .5;
+        public static final double kEI = .005;
+        public static final double kED = 5;
+
+        //Motion magic
+        public static final double kEVelo = 0.5;
+        public static final double kEAccel = Math.sqrt(kEVelo);
+
+        //Setpoints for elevator
+        public static final double kElevatorFloor = 2;
+        public static final double kElevatorMid = 5;
+        public static final double kElevatorHigh = 8;
+
+        public static final double kElevatorManualFoward = .5;
+        public static final double kElevatorManualReverse = -.5;
     }
   
 }

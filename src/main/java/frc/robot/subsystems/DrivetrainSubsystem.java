@@ -28,10 +28,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftSideMotors.set(leftSpeed);
     rightSideMotors.set(rightSpeed);
     */
-   
 
   public void setArcadeSpeed (double moveSpeed, double rotateSpeed){
-    arcDrive.arcadeDrive(moveSpeed, rotateSpeed);
+    arcDrive.arcadeDrive(moveSpeed, rotateSpeed); 
     System.out.println("Drive speed: " + moveSpeed + ", Rotate Speed: " + rotateSpeed);
   } 
 
@@ -39,11 +38,23 @@ public class DrivetrainSubsystem extends SubsystemBase {
     setArcadeSpeed(0, 0); 
   }
 
+  /* public void driveForwardAL() {
+    setArcadeSpeed(Constants.AutoAlignConstants.maxDriveSpeed, 0); 
+  }
+
+  public void turnRight() {
+    setArcadeSpeed(0, 0.35); 
+  }
+
+  public void turnLeft() {
+    setArcadeSpeed(0, -0.35); // +0.35? 
+  } */
+
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {}
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // This method will be called once per scheduler run 
   }
 }

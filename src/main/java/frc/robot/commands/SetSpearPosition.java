@@ -5,35 +5,34 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.LEDSubsystem;
-// import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.SpearPID;
 
-public class Pipeline1Command extends CommandBase {
+public class SetSpearPosition extends CommandBase {
+  
+  private final SpearPID m_spearPID;
+  private final double m_spearSetPoint;
 
-  private final LimelightSubsystem limelightSubsystem;
-  private final LEDSubsystem ledSubsystem; // PIPELINE 1 = GOLD
+  public SetSpearPosition(double spearSetPoint, SpearPID SpearPID) {
+    m_spearPID = SpearPID;
+    m_spearSetPoint = spearSetPoint;
 
-  /** Creates a new Pipeline1. */
-  public Pipeline1Command(LimelightSubsystem limelightSubsystem, LEDSubsystem ledSubsystem) {
-    this.limelightSubsystem = limelightSubsystem;
-    this.ledSubsystem = ledSubsystem;
-    addRequirements(limelightSubsystem, ledSubsystem);
+    addRequirements(m_spearPID);
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ledSubsystem.setGold();
-    
+    m_spearPID.setSetpoint(m_spearSetPoint);
+    //m_spearPID.setSpearMotorSpeed(m_spearSetPoint);
+    m_spearPID.enable();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limelightSubsystem.setPipeline(Constants.VisionConstants.Cone_Pipeline);
+  
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +42,6 @@ public class Pipeline1Command extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_spearPID.getController().atSetpoint();
   }
 }

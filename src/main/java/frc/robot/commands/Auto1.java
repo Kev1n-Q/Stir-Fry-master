@@ -9,20 +9,22 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class DefaultDriveCommand extends CommandBase {
+
+public class Auto1 extends CommandBase { // L file 
 
   private final DrivetrainSubsystem drivetrainSubsystem;
   private final DoubleSupplier moveSpeed;
-  private final DoubleSupplier rotateSpeed;
+  private final DoubleSupplier rotateSpeed; 
 
-  /** Creates a new DefaultDriveComand. */
-  public DefaultDriveCommand(DrivetrainSubsystem drivetrainSubsystem, DoubleSupplier moveSpeed, DoubleSupplier rotateSpeed) {
-   this.drivetrainSubsystem = drivetrainSubsystem;
-   this.moveSpeed = moveSpeed;
-   this.rotateSpeed = rotateSpeed;
-   addRequirements(drivetrainSubsystem);
-   
+  /** Creates a new Autos1. */
+  public Auto1(DrivetrainSubsystem drivetrainSubsystem, DoubleSupplier moveSpeed, DoubleSupplier rotateSpeed) {
+    this.drivetrainSubsystem = drivetrainSubsystem;
+    this.moveSpeed = moveSpeed;
+    this.rotateSpeed = rotateSpeed;
+    
+
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drivetrainSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -34,14 +36,13 @@ public class DefaultDriveCommand extends CommandBase {
   public void execute() {
     double realMoveSpeed = moveSpeed.getAsDouble();
     double realRotateSpeed = rotateSpeed.getAsDouble();
+
     drivetrainSubsystem.setArcadeSpeed(realMoveSpeed, realRotateSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    // drivetrainSubsystem.setArcadeSpeed(0, 0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
