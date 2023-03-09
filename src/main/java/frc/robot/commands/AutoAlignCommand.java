@@ -85,7 +85,7 @@ public class AutoAlignCommand extends CommandBase {
         System.out.println("Not in range!!! GET CLOSER"); 
       }  
     } else {
-      drivetrainSubsystem.setArcadeSpeed(0,0);
+      drivetrainSubsystem.setArcadeSpeed(0, 0);
     }
   }
 
