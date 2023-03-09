@@ -15,6 +15,7 @@
     
     private static double tx;
     private static double ty;
+    private static int validTargets;
     private static double targetArea;
 
     private static int currentPipeline = Constants.VisionConstants.Default_Pipeline; // April Tags
@@ -38,16 +39,16 @@
       return currentPipeline;
     }
 
-    /* public int getValidTargets() {
-      return validTargets;
-    } */
- 
-    /* public static void updateLimelightValues() {
+    /* public static boolean m_LimelightHasValidTargets = false;
+    public static double m_LimelightDriveCommand = 0.0;
+    public static double m_LimelightRotateCommand = 0.0; */
+
+     /* public static void Update_Limelight_Values() {
     
-        double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0.0); 
-        // double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
-        double targetArea = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0.0);
-        int validTargets = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getNumber(0).intValue();
+        double tx = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("tx").getDouble(0.0); 
+        double ty = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("ty").getDouble(0.0);
+        double targetArea = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("ta").getDouble(0.0);
+        double validTargets = NetworkTableInstance.getDefault().getTable("Limelight").getEntry("tv").getDouble(0.0);
         
 
         if (validTargets < 1) {
@@ -84,6 +85,7 @@
       tx = table.getEntry("tx").getDouble(0.0);
       ty = table.getEntry("ty").getDouble(0.0);
       targetArea = table.getEntry("ta").getDouble(0.0);
+      validTargets = table.getEntry("tv").getNumber(0).intValue();
     } 
 
       /* double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0.0);
@@ -155,19 +157,27 @@
       return tx;
     }
 
-    public static double getTY() {
-      return ty;
-    }
-
     public double getTargetArea() {
       return targetArea;
     }
 
-    /* public void reset() {
-      lastDriveCommand = 0.0;
-      lastRotateCommand = 0.0;
-      lastTargetArea = 0.0; 
+    public double getTY() {
+      return ty;
+    }
+
+    public int hasValidTargets() {
+      return validTargets;
+    }
+
+
+    /* public double getDriveCommand(double drivespeed, double desiredtargetarea) {
+      return m_LimelightDriveCommand;
+    }
+
+    public double getRotateCommand(double rotatespeed) {
+      return m_LimelightRotateCommand;
     } */
+
     
     /** Creates a new LimelightSubsystem. */
     public LimelightSubsystem() {}
@@ -175,8 +185,6 @@
     @Override
     public void periodic() {
       // This method will be called once per scheduler run
-      updateLimelightValues();
-      
     }
 
 }

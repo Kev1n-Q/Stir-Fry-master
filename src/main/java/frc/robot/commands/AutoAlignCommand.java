@@ -53,35 +53,39 @@ public class AutoAlignCommand extends CommandBase {
     double tx = limelightSubsystem.getTX(); 
     double targetArea = limelightSubsystem.getTargetArea(); 
     
-  // targetArea == 0.5 && targetArea == 3
-    if (targetArea >= Constants.AutoAlignConstants.minTargetArea && targetArea <= Constants.AutoAlignConstants.maxTargetArea) { // if within this range, run this
-      if (Math.abs(tx) <= 0.5 && targetArea >= 2) {
-        drivetrainSubsystem.stop(); // if tx is less than or equal to 0.5, it means we're really close -> stop
-        System.out.println("You're good to go! - READY"); 
-      } else if (tx > 0.5) {  // if tx is > 0.5, run this 
-          if (targetArea < 2) {
-            drivetrainSubsystem.setArcadeSpeed(Constants.AutoAlignConstants.driveSpeed, -Constants.AutoAlignConstants.rotateSpeed);
-            System.out.println("NOT GOOD DISTANCE - NOT ALIGNED"); 
+    // if has valid targets, run this command || else, setDriveSpeed and setRotateSpeed to 0
+    if (limelightSubsystem.hasValidTargets() == 1) {
+      // targetArea == 0.5 && targetArea == 3
+      if (targetArea >= Constants.AutoAlignConstants.minTargetArea && targetArea <= Constants.AutoAlignConstants.maxTargetArea) { // if within this range, run this
+        if (Math.abs(tx) <= 0.5 && targetArea >= 2) {
+          drivetrainSubsystem.stop(); // if tx is less than or equal to 0.5, it means we're really close -> stop
+          System.out.println("You're good to go! - READY"); 
+        } else if (tx > 0.5) {  // if tx is > 0.5, run this 
+            if (targetArea < 2) {
+              drivetrainSubsystem.setArcadeSpeed(Constants.AutoAlignConstants.driveSpeed, -Constants.AutoAlignConstants.rotateSpeed);
+              System.out.println("NOT GOOD DISTANCE - NOT ALIGNED"); 
+            } else if (targetArea >= 2) {
+              drivetrainSubsystem.setArcadeSpeed(0, -Constants.AutoAlignConstants.rotateSpeed);
+              System.out.println("GOOD DISTANCE - NOT ALIGNED)"); 
+            }  
+        } else if (tx < -0.5) { // if tx is < -0.5 (left) ** more to the left than 0.5, ** then run this
+            if (targetArea < 2) { // figure out where negative and positive rotations go****
+            drivetrainSubsystem.setArcadeSpeed(Constants.AutoAlignConstants.driveSpeed, Constants.AutoAlignConstants.rotateSpeed);
+            System.out.println("NOT GOOD DISTANCE - NOT ALIGNED");
           } else if (targetArea >= 2) {
-            drivetrainSubsystem.setArcadeSpeed(0, -Constants.AutoAlignConstants.rotateSpeed);
-            System.out.println("GOOD DISTANCE - NOT ALIGNED)"); 
-          }  
-      } else if (tx < -0.5) { // if tx is < -0.5 (left) ** more to the left than 0.5, ** then run this
-          if (targetArea < 2) { // figure out where negative and positive rotations go****
-          drivetrainSubsystem.setArcadeSpeed(Constants.AutoAlignConstants.driveSpeed, Constants.AutoAlignConstants.rotateSpeed);
-          System.out.println("NOT GOOD DISTANCE - NOT ALIGNED");
-        } else if (targetArea >= 2) {
-          drivetrainSubsystem.setArcadeSpeed(0, Constants.AutoAlignConstants.rotateSpeed);
-          System.out.println("GOOD DISTANCE - NOT ALIGNED"); 
-        }
+            drivetrainSubsystem.setArcadeSpeed(0, Constants.AutoAlignConstants.rotateSpeed);
+            System.out.println("GOOD DISTANCE - NOT ALIGNED"); 
+          }
+        } 
       } 
-    } 
 
-    else { // else, we're too far, don't do anything (switch to DefaultDriveCommand!)
-      drivetrainSubsystem.stop(); 
-      System.out.println("Not in range!!! GET CLOSER"); 
-    }  
-    
+      else { // else, we're too far, don't do anything (switch to DefaultDriveCommand!)
+        drivetrainSubsystem.stop(); 
+        System.out.println("Not in range!!! GET CLOSER"); 
+      }  
+    } else {
+      drivetrainSubsystem.setArcadeSpeed(0,0);
+    }
   }
 
     /* double driveCommand = LimelightSubsystem.getDriveCommand(Constants.AutoAlignConstants.driveSpeed, Constants.AutoAlignConstants.desiredTargetArea);
@@ -113,7 +117,7 @@ public class AutoAlignCommand extends CommandBase {
     else{
       return true;
     } */
-   
+  
     return false; 
   }
 
