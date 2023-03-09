@@ -52,9 +52,10 @@ public class AutoAlignCommand extends CommandBase {
 
     double tx = limelightSubsystem.getTX(); 
     double targetArea = limelightSubsystem.getTargetArea(); 
+    double validTargets = limelightSubsystem.hasValidTargets();
     
     // if has valid targets, run this command || else, setDriveSpeed and setRotateSpeed to 0
-    if (limelightSubsystem.hasValidTargets() == 1) {
+    if (validTargets == 1) {
       // targetArea == 0.5 && targetArea == 3
       if (targetArea >= Constants.AutoAlignConstants.minTargetArea && targetArea <= Constants.AutoAlignConstants.maxTargetArea) { // if within this range, run this
         if (Math.abs(tx) <= 0.5 && targetArea >= 2) {
