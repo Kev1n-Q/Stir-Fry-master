@@ -82,10 +82,10 @@ public class RobotContainer {
 
     // Switch pipelines 
     driveController.leftTrigger().onTrue(new Pipeline0Command(limelightSubsystem, ledSubsystem));
-    driveController.rightTrigger().onTrue(new Pipeline1Command(limelightSubsystem, ledSubsystem));
+    driveController.rightTrigger().onTrue(new Pipeline1Command(limelightSubsystem, ledSubsystem)); 
 
     // run AutoAlignCommand
-    driveController.x().onTrue(new AutoAlignCommand(drivetrainSubsystem,limelightSubsystem));
+    driveController.x().onTrue(new AutoAlignCommand(drivetrainSubsystem, limelightSubsystem));
 
     // driveController.y().onTrue(new LEDChargeStationCommand(ledSubsystem)); // rainbow: When going to platform
   }
