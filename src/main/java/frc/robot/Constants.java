@@ -13,7 +13,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-     public static final int driverController_ID = 0; // drive + vision pipeline
+    public static final int driverController_ID = 0; // drive + vision pipeline
     public static final int mechanismController_ID = 1; // mechanisms + vision command
 
 
