@@ -85,14 +85,14 @@ public class LEDSubsystem extends SubsystemBase {
     ledLights.setData(ledLightsBuffer);
   }
 
-  public void setRainbow() { // charge station period
+   public void setRainbow() { // charge station period
     for (int i = 0; i < ledLightsBuffer.getLength(); i++) {
       int hue = (i / (int) ledLightsBuffer.getLength()) * 360; // hue: 0 - 360 degrees
       Color color = Color.fromHSV(hue, 1, 1); // if too bright, change v to 0.5
       ledLightsBuffer.setLED(i, color);
     }
     ledLights.setData(ledLightsBuffer); 
-  }
+  } 
 
   @Override
   public void periodic() {
